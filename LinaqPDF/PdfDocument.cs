@@ -7,11 +7,41 @@ using System.Threading.Tasks;
 
 namespace LinaqPDF
 {
-    public class PdfDocument
+    public class PdfDocument : IDisposable
     {
+        public PdfDocument()
+        {
+
+        }
+
+        public List<Page> Pages { get; set; }
+
+        private async void GenerateAndSaveContent(string path)
+        {
+            await Task.Run(() =>
+            {
+                using (StreamWriter file = new StreamWriter(path, append: true))
+                {
+                    file.WriteLineAsync("Test line");
+                }
+            });
+        }
+
         public void SaveToFile(string path)
         {
-            File.WriteAllText(path,"test");
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException("Path can not be empty.", nameof(path));
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            GenerateAndSaveContent(path);
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            GC.Collect();
         }
     }
 }
