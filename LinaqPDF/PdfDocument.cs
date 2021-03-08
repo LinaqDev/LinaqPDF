@@ -14,7 +14,20 @@ namespace LinaqPDF
 
         }
 
-        public List<Page> Pages { get; set; }
+        public List<Page> Pages { get; private set; }
+
+        public Page AddNewPage()
+        {
+            Page p = new Page();
+            Pages.Add(p);
+            return p;
+        }
+
+        public void RemovePage(Page page)
+        {
+            Pages.Remove(Pages.FirstOrDefault(x => x.Id == page.Id));
+            page.Dispose();
+        }
 
         private async void GenerateAndSaveContent(string path)
         {

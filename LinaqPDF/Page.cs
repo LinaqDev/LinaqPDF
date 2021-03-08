@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace LinaqPDF
 {
-    public class Page
+    public class Page : IDisposable
     {
+        internal string Id;
+        public Page()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            GC.Collect();
+        }
     }
 }
