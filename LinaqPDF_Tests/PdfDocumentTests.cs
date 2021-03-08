@@ -15,9 +15,11 @@ namespace LinaqPDF_Tests
         [TestMethod]
         public void SaveToFileTest()
         {
+            string FileName = "test.pdf";
             PdfDocument doc = new PdfDocument();
-            doc.SaveToFile("test.pdf");
-            Assert.IsTrue(File.Exists("test.pdf"));
+            doc.SaveToFile(FileName);
+            Assert.IsTrue(File.Exists(FileName));
+            File.Delete(FileName);
         }
 
         [TestMethod]

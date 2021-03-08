@@ -43,7 +43,7 @@ namespace LinaqPDF
                 throw new ArgumentException("Path can not be empty.", nameof(path));
 
             if (File.Exists(path))
-                File.Delete(path);
+                path = Helpers.GetUniqueFilePath(path);
 
             GenerateAndSaveContent(path);
         }
