@@ -39,5 +39,23 @@ namespace LinaqPDF_Tests
                 doc.SaveToFile(null);
             });
         }
+
+        [TestMethod]
+        public void AddNewPageTest()
+        {
+            PdfDocument doc = new PdfDocument();
+            var p = doc.AddNewPage();
+            Assert.IsNotNull(p);
+            Assert.AreEqual<int>(doc.Pages.Count, 1);
+        }
+
+        [TestMethod]
+        public void RemovePageTest()
+        {
+            PdfDocument doc = new PdfDocument();
+            var p = doc.AddNewPage();
+            doc.RemovePage(p); 
+            Assert.AreEqual<int>(doc.Pages.Count, 0);
+        }
     }
 }

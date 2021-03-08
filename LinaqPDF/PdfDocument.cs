@@ -11,7 +11,7 @@ namespace LinaqPDF
     {
         public PdfDocument()
         {
-
+            Pages = new List<Page>();
         }
 
         public List<Page> Pages { get; private set; }
@@ -30,14 +30,11 @@ namespace LinaqPDF
         }
 
         private async void GenerateAndSaveContent(string path)
-        {
-            await Task.Run(() =>
+        { 
+            using (StreamWriter file = new StreamWriter(path, append: true))
             {
-                using (StreamWriter file = new StreamWriter(path, append: true))
-                {
-                    file.WriteLineAsync("Test line");
-                }
-            });
+                await file.WriteLineAsync("Test line");
+            }
         }
 
         public void SaveToFile(string path)
